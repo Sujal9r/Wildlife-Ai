@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Junglix | Login</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="auth-page">
+      <section class="auth-hero">
+        <p class="eyebrow">Forest Department Access</p>
+        <h1>Login or create an account to open your role dashboard.</h1>
+        <p id="hero-subtitle" class="hero-text">
+          Loading system information...
+        </p>
+        <div class="credential-box">
+          <h3>Demo Credentials</h3>
+          <p><strong>Admin:</strong> admin@junglix.com / admin123</p>
+          <p><strong>Supervisor:</strong> supervisor@junglix.com / super123</p>
+          <p><strong>User:</strong> officer@junglix.com / user123</p>
+        </div>
+      </section>
+
+      <section class="auth-card">
+        <div class="auth-tabs">
+          <button id="login-tab" class="tab-button active" type="button">Login</button>
+          <button id="signup-tab" class="tab-button" type="button">Sign Up</button>
+        </div>
+
+        <form id="login-form" class="auth-form">
+          <label for="login-email">Email</label>
+          <input id="login-email" name="email" type="email" required />
+          <label for="login-password">Password</label>
+          <input id="login-password" name="password" type="password" required />
+          <button type="submit">Login</button>
+        </form>
+
+        <form id="signup-form" class="auth-form hidden-form">
+          <label for="signup-name">Full Name</label>
+          <input id="signup-name" name="name" type="text" required />
+          <label for="signup-email">Email</label>
+          <input id="signup-email" name="email" type="email" required />
+          <label for="signup-password">Password</label>
+          <input id="signup-password" name="password" type="password" required />
+          <label for="signup-region">Region</label>
+          <input id="signup-region" name="region" type="text" required />
+          <button type="submit">Create Account</button>
+        </form>
+
+        <p id="auth-message" class="small-note">Use your credentials to continue.</p>
+      </section>
+    </main>
+
+    <script src="auth.js"></script>
+  </body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Junglix | Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="page-top">
+      <nav class="nav inner-nav">
+        <div class="brand">Junglix</div>
+        <div class="top-actions">
+          <button id="logout-button" class="ghost-link dark-link" type="button">Logout</button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="dashboard-main">
+      <section class="panel dashboard-hero">
+        <div class="dashboard-header">
+          <div>
+            <p class="section-label">Role Dashboard</p>
+            <h1 id="dashboard-title">Loading dashboard...</h1>
+            <p id="dashboard-description" class="card-copy"></p>
+            <p id="current-user-line" class="small-note"></p>
+          </div>
+          <div class="current-role">
+            <span>Current Role</span>
+            <strong id="current-role-badge">Loading</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard-shell">
+        <section class="panel dashboard-panel">
+          <div id="role-summary" class="role-summary"></div>
+          <div id="stat-grid" class="stat-grid"></div>
+
+          <section class="map-panel">
+            <div class="map-copy">
+              <p class="section-label">Protected Area Map</p>
+              <h3>Ranthambore National Park Monitoring View</h3>
+              <p class="card-copy">
+                This embedded map helps the forest department quickly view the protected
+                area while tracking wildlife movement, patrol routes, and nearby alerts.
+              </p>
+            </div>
+            <div class="map-frame-wrap">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d229481.1928138115!2d76.3023972!3d26.0124886!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3971d8f668d65517%3A0x6eb9f78b60bac925!2sRanthambore%20National%20Park!5e0!3m2!1sen!2sin!4v1774762102332!5m2!1sen!2sin"
+                width="600"
+                height="450"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Ranthambore National Park Map"
+              ></iframe>
+            </div>
+          </section>
+
+          <div class="content-grid">
+            <article class="sub-panel">
+              <h3>Role Responsibilities</h3>
+              <ul id="highlight-list" class="clean-list"></ul>
+            </article>
+
+            <article class="sub-panel">
+              <h3>Modern Tools Used</h3>
+              <div id="tool-grid" class="mini-grid"></div>
+            </article>
+          </div>
+
+          <div class="content-grid secondary-grid">
+            <article class="sub-panel">
+              <h3>Access Permissions</h3>
+              <ul id="permission-list" class="clean-list"></ul>
+            </article>
+
+            <article class="sub-panel">
+              <h3>Quick Actions</h3>
+              <div id="quick-action-list" class="action-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel records-panel">
+          <div class="tabs-head">
+            <div>
+              <p class="section-label">Operations</p>
+              <h2 id="operations-title">Reports, tasks, and team activity</h2>
+            </div>
+          </div>
+
+          <div class="records-grid">
+            <article class="sub-panel">
+              <h3>Active Reports</h3>
+              <div id="report-list" class="record-list"></div>
+            </article>
+
+            <article class="sub-panel">
+              <h3>Assigned Tasks</h3>
+              <div id="task-list" class="record-list"></div>
+            </article>
+
+            <article class="sub-panel">
+              <h3>Team Directory</h3>
+              <div id="team-list" class="record-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="admin-panel" class="panel admin-panel hidden-panel">
+          <div class="tabs-head">
+            <div>
+              <p class="section-label">Admin Controls</p>
+              <h2>Custom roles and user role assignment</h2>
+            </div>
+          </div>
+
+          <div class="content-grid secondary-grid">
+            <article class="sub-panel">
+              <h3>Create Custom Role</h3>
+              <form id="custom-role-form" class="auth-form compact-form">
+                <label for="role-name">Role Name</label>
+                <input id="role-name" name="name" type="text" required />
+                <label for="role-description">Role Description</label>
+                <textarea id="role-description" name="description" rows="4" required></textarea>
+                <button type="submit">Create Role</button>
+              </form>
+              <p id="admin-message" class="small-note">Only admins can see and use these controls.</p>
+            </article>
+
+            <article class="sub-panel">
+              <h3>Custom Roles</h3>
+              <div id="custom-role-list" class="record-list"></div>
+            </article>
+          </div>
+
+          <article class="sub-panel admin-users-panel">
+            <h3>Assign Role To User</h3>
+            <div id="admin-user-list" class="record-list"></div>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <script src="dashboard.js"></script>
+  </body>
+</html>
