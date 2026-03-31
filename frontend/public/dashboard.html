@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>wildlife ai | Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="page-top">
+      <nav class="nav inner-nav">
+        <div class="brand-block">
+          <div class="brand">wildlife ai</div>
+          <p class="brand-subtitle">Protected area intelligence dashboard</p>
+        </div>
+        <div class="top-actions">
+          <span class="status-pill">Conservation Network</span>
+          <button id="logout-button" class="ghost-link dark-link" type="button">Logout</button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="dashboard-main">
+      <section class="panel dashboard-hero">
+        <div class="dashboard-header">
+          <div class="hero-main">
+            <p class="section-label">Role Dashboard</p>
+            <h1 id="dashboard-title">Loading dashboard...</h1>
+            <p id="dashboard-description" class="card-copy"></p>
+            <p id="current-user-line" class="small-note"></p>
+          </div>
+          <div class="current-role hero-aside">
+            <span>Current Role</span>
+            <strong id="current-role-badge">Loading</strong>
+            <p class="small-note">Role-specific access updates the reports, team activity, and controls below.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard-shell">
+        <section class="panel dashboard-panel">
+          <div id="role-summary" class="role-summary"></div>
+          <div id="stat-grid" class="stat-grid"></div>
+
+          <section class="protected-areas-panel">
+            <div class="map-copy">
+              <p class="section-label">Protected Area Maps</p>
+              <h3>Live Reserve Monitoring Views</h3>
+              <p class="card-copy">
+                These mapped conservation zones help teams monitor habitats, plan patrol
+                movement, understand terrain, and review nearby wildlife-sensitive regions
+                across multiple reserves in India.
+              </p>
+            </div>
+
+            <div class="protected-map-grid">
+              <article class="sub-panel reserve-card">
+                <div class="reserve-copy">
+                  <p class="section-label">Rajasthan</p>
+                  <h3>Sariska Tiger Reserve</h3>
+                  <p class="card-copy">
+                    A dry deciduous forest reserve known for tiger recovery, leopards, hyenas,
+                    and strong corridor importance in the Aravalli landscape.
+                  </p>
+                  <div class="reserve-meta">
+                    <span>State: Rajasthan</span>
+                    <span>Focus: Tiger monitoring</span>
+                    <span>Terrain: Hills and scrub forest</span>
+                  </div>
+                </div>
+                <div class="map-frame-wrap">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56721.40364022643!2d76.36887885820312!3d27.3104429!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396d7fad54382e5d%3A0x4860ac432e594e26!2sSariska%20Tiger%20Reserve!5e0!3m2!1sen!2sin!4v1774974614902!5m2!1sen!2sin"
+                    width="600"
+                    height="450"
+                    style="border: 0"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Sariska Tiger Reserve Map"
+                  ></iframe>
+                </div>
+              </article>
+
+              <article class="sub-panel reserve-card">
+                <div class="reserve-copy">
+                  <p class="section-label">Rajasthan</p>
+                  <h3>Nahargarh Biological Park</h3>
+                  <p class="card-copy">
+                    A protected urban-edge biodiversity space near Jaipur that supports
+                    rescue, education, and regional wildlife awareness programs.
+                  </p>
+                  <div class="reserve-meta">
+                    <span>State: Rajasthan</span>
+                    <span>Focus: Biodiversity education</span>
+                    <span>Terrain: Rocky woodland</span>
+                  </div>
+                </div>
+                <div class="map-frame-wrap">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56871.14199858473!2d75.7944252582031!3d27.016057499999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db0219a4fbceb%3A0xb4d2669f0e9ff538!2sNahargarh%20Biological%20Park!5e0!3m2!1sen!2sin!4v1774974634445!5m2!1sen!2sin"
+                    width="600"
+                    height="450"
+                    style="border: 0"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Nahargarh Biological Park Map"
+                  ></iframe>
+                </div>
+              </article>
+
+              <article class="sub-panel reserve-card">
+                <div class="reserve-copy">
+                  <p class="section-label">Assam</p>
+                  <h3>Kaziranga National Park</h3>
+                  <p class="card-copy">
+                    One of India’s most important wildlife landscapes, famous for one-horned
+                    rhinoceroses, elephants, wetlands, and floodplain ecosystems.
+                  </p>
+                  <div class="reserve-meta">
+                    <span>State: Assam</span>
+                    <span>Focus: Rhino conservation</span>
+                    <span>Terrain: Grasslands and wetlands</span>
+                  </div>
+                </div>
+                <div class="map-frame-wrap">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114115.97555111827!2d93.21241011640622!3d26.644504400000013!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3744412d379f65df%3A0x8b2b74b6e7c99458!2sKaziranga%20National%20Park!5e0!3m2!1sen!2sin!4v1774974691428!5m2!1sen!2sin"
+                    width="600"
+                    height="450"
+                    style="border: 0"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Kaziranga National Park Map"
+                  ></iframe>
+                </div>
+              </article>
+
+              <article class="sub-panel reserve-card">
+                <div class="reserve-copy">
+                  <p class="section-label">Madhya Pradesh</p>
+                  <h3>Bandhavgarh National Park</h3>
+                  <p class="card-copy">
+                    A dense forested tiger landscape known for strong big-cat visibility,
+                    biodiversity monitoring, and sensitive core-buffer protection planning.
+                  </p>
+                  <div class="reserve-meta">
+                    <span>State: Madhya Pradesh</span>
+                    <span>Focus: Tiger landscape monitoring</span>
+                    <span>Terrain: Forest hills and grassland patches</span>
+                  </div>
+                </div>
+                <div class="map-frame-wrap">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d116969.48747776699!2d80.85299745793792!3d23.6295509733504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3986a5ee3c6959b7%3A0x600191e348ba2f44!2sBandhavgarh%20National%20Park!5e0!3m2!1sen!2sin!4v1774975002290!5m2!1sen!2sin"
+                    width="600"
+                    height="450"
+                    style="border: 0"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Bandhavgarh National Park Map"
+                  ></iframe>
+                </div>
+              </article>
+
+              <article class="sub-panel reserve-card">
+                <div class="reserve-copy">
+                  <p class="section-label">Uttarakhand</p>
+                  <h3>Jim Corbett National Park</h3>
+                  <p class="card-copy">
+                    One of India's oldest national parks, known for tiger habitat, riverine
+                    belts, sal forest, and high-value patrol and eco-monitoring operations.
+                  </p>
+                  <div class="reserve-meta">
+                    <span>State: Uttarakhand</span>
+                    <span>Focus: Tiger and habitat patrol</span>
+                    <span>Terrain: River valleys and forest</span>
+                  </div>
+                </div>
+                <div class="map-frame-wrap">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3470.7712595812122!2d78.87833978410386!3d29.55215501116607!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390a24ffffffffff%3A0x3017b72d3d253fd7!2sJim%20Corbett%20National%20Park!5e0!3m2!1sen!2sin!4v1774974813026!5m2!1sen!2sin"
+                    width="600"
+                    height="450"
+                    style="border: 0"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Jim Corbett National Park Map"
+                  ></iframe>
+                </div>
+              </article>
+
+              <article class="sub-panel reserve-card">
+                <div class="reserve-copy">
+                  <p class="section-label">West Bengal</p>
+                  <h3>Sundarbans National Park</h3>
+                  <p class="card-copy">
+                    A globally significant mangrove ecosystem where estuarine waterways,
+                    islands, and tiger habitat demand careful monitoring and rapid response.
+                  </p>
+                  <div class="reserve-meta">
+                    <span>State: West Bengal</span>
+                    <span>Focus: Mangrove ecosystem protection</span>
+                    <span>Terrain: Delta creeks and islands</span>
+                  </div>
+                </div>
+                <div class="map-frame-wrap">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3702.3074012380575!2d88.8828015755122!3d21.884235379987945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a018264f05cd269%3A0xe99cba5218a4be78!2sSundarbans%20National%20Park!5e0!3m2!1sen!2sin!4v1774974760793!5m2!1sen!2sin"
+                    width="600"
+                    height="450"
+                    style="border: 0"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Sundarbans National Park Map"
+                  ></iframe>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <div class="content-grid">
+            <article class="sub-panel">
+              <h3>Role Responsibilities</h3>
+              <ul id="highlight-list" class="clean-list"></ul>
+            </article>
+
+            <article class="sub-panel">
+              <h3>Modern Tools Used</h3>
+              <div id="tool-grid" class="mini-grid"></div>
+            </article>
+          </div>
+
+          <div class="content-grid secondary-grid">
+            <article class="sub-panel">
+              <h3>Access Permissions</h3>
+              <ul id="permission-list" class="clean-list"></ul>
+            </article>
+
+            <article class="sub-panel">
+              <h3>Quick Actions</h3>
+              <div id="quick-action-list" class="action-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel records-panel">
+          <div class="tabs-head">
+            <div>
+              <p class="section-label">Operations</p>
+              <h2 id="operations-title">Reports, tasks, and team activity</h2>
+            </div>
+          </div>
+
+          <div class="records-grid">
+            <article class="sub-panel">
+              <h3>Active Reports</h3>
+              <div id="report-list" class="record-list"></div>
+            </article>
+
+            <article class="sub-panel">
+              <h3>Assigned Tasks</h3>
+              <div id="task-list" class="record-list"></div>
+            </article>
+
+            <article class="sub-panel">
+              <h3>Team Directory</h3>
+              <div id="team-list" class="record-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="admin-panel" class="panel admin-panel hidden-panel">
+          <div class="tabs-head">
+            <div>
+              <p class="section-label">Admin Controls</p>
+              <h2>Custom roles and user role assignment</h2>
+            </div>
+          </div>
+
+          <div class="content-grid secondary-grid">
+            <article class="sub-panel">
+              <h3>Create Custom Role</h3>
+              <form id="custom-role-form" class="auth-form compact-form">
+                <label for="role-name">Role Name</label>
+                <input id="role-name" name="name" type="text" required />
+                <label for="role-description">Role Description</label>
+                <textarea id="role-description" name="description" rows="4" required></textarea>
+                <button type="submit">Create Role</button>
+              </form>
+              <p id="admin-message" class="small-note">Only admins can see and use these controls.</p>
+            </article>
+
+            <article class="sub-panel">
+              <h3>Custom Roles</h3>
+              <div id="custom-role-list" class="record-list"></div>
+            </article>
+          </div>
+
+          <article class="sub-panel admin-users-panel">
+            <h3>Assign Role To User</h3>
+            <div id="admin-user-list" class="record-list"></div>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <script src="app-data.js"></script>
+    <script src="dashboard.js"></script>
+  </body>
+</html>

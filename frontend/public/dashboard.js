@@ -1,5 +1,3 @@
-const token = localStorage.getItem("junglix_token");
-
 const dashboardTitle = document.getElementById("dashboard-title");
 const dashboardDescription = document.getElementById("dashboard-description");
 const currentRoleBadge = document.getElementById("current-role-badge");
@@ -21,15 +19,8 @@ const adminMessage = document.getElementById("admin-message");
 const customRoleList = document.getElementById("custom-role-list");
 const adminUserList = document.getElementById("admin-user-list");
 
-if (!token) {
-  window.location.href = "/";
-}
-
-function authHeaders() {
-  return {
-    Authorization: `Bearer ${token}`,
-    "Content-Type": "application/json"
-  };
+if (!localStorage.getItem("wildlife-ai_token")) {
+  window.location.href = "./index.html";
 }
 
 function createStatCards(stats) {
@@ -215,21 +206,11 @@ function renderDashboard(data) {
 
 async function loadDashboard() {
   try {
-    const response = await fetch("/api/session", {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-
-    const data = await response.json();
-    if (!response.ok) {
-      throw new Error(data.message || "Unable to load dashboard");
-    }
-
+    const data = WildlifeAiApp.getSession();
     renderDashboard(data);
   } catch (error) {
-    localStorage.removeItem("junglix_token");
-    window.location.href = "/";
+    WildlifeAiApp.logout();
+    window.location.href = "./index.html";
   }
 }
 
@@ -240,17 +221,7 @@ customRoleForm.addEventListener("submit", async (event) => {
   const payload = Object.fromEntries(formData.entries());
 
   try {
-    const response = await fetch("/api/admin/roles", {
-      method: "POST",
-      headers: authHeaders(),
-      body: JSON.stringify(payload)
-    });
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || "Unable to create role");
-    }
-
+    const data = WildlifeAiApp.createRole(payload);
     adminMessage.textContent = data.message;
     customRoleForm.reset();
     loadDashboard();
@@ -266,16 +237,7 @@ customRoleList.addEventListener("click", async (event) => {
   }
 
   try {
-    const response = await fetch(`/api/admin/roles/${roleId}`, {
-      method: "DELETE",
-      headers: authHeaders()
-    });
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || "Unable to delete role");
-    }
-
+    const data = WildlifeAiApp.deleteRole(roleId);
     adminMessage.textContent = data.message;
     loadDashboard();
   } catch (error) {
@@ -295,17 +257,7 @@ adminUserList.addEventListener("click", async (event) => {
   }
 
   try {
-    const response = await fetch(`/api/admin/users/${userId}/role`, {
-      method: "PATCH",
-      headers: authHeaders(),
-      body: JSON.stringify({ roleId: select.value })
-    });
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || "Unable to assign role");
-    }
-
+    const data = WildlifeAiApp.assignRole(userId, select.value);
     adminMessage.textContent = data.message;
     loadDashboard();
   } catch (error) {
@@ -314,8 +266,8 @@ adminUserList.addEventListener("click", async (event) => {
 });
 
 logoutButton.addEventListener("click", () => {
-  localStorage.removeItem("junglix_token");
-  window.location.href = "/";
+  WildlifeAiApp.logout();
+  window.location.href = "./index.html";
 });
 
 loadDashboard();

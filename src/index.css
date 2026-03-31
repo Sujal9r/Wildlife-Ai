@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-white/10;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-forest-950 font-sans text-white antialiased;
+    background-image:
+      radial-gradient(circle at top left, rgba(47, 122, 93, 0.22), transparent 28%),
+      radial-gradient(circle at top right, rgba(243, 181, 98, 0.1), transparent 24%),
+      linear-gradient(180deg, rgba(6,17,13,1) 0%, rgba(10,23,18,1) 40%, rgba(12,28,22,1) 100%);
+  }
+
+  ::selection {
+    @apply bg-moss/30 text-white;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply rounded-3xl border border-white/10 bg-white/5 shadow-glow backdrop-blur-xl;
+  }
+
+  .surface-panel {
+    @apply rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-white/[0.03] shadow-soft backdrop-blur-xl;
+  }
+
+  .nav-chip {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs font-medium text-white/75 backdrop-blur;
+  }
+
+  .metric-card {
+    @apply surface-panel relative overflow-hidden p-5 transition duration-300 hover:-translate-y-1 hover:border-moss/30 hover:bg-white/[0.08];
+  }
+
+  .data-card {
+    @apply rounded-2xl border border-white/10 bg-forest-900/70 p-5 backdrop-blur;
+  }
+
+  .table-shell {
+    @apply overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] shadow-soft;
+  }
+
+  .table-head {
+    @apply bg-white/[0.03] text-left text-xs uppercase tracking-[0.24em] text-white/50;
+  }
+
+  .table-cell {
+    @apply px-4 py-4 text-sm text-white/80;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.14);
+    border-radius: 9999px;
+  }
+}

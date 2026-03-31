@@ -21,8 +21,7 @@ function showSignup() {
 
 async function loadOverview() {
   try {
-    const response = await fetch("/api/overview");
-    const data = await response.json();
+    const data = WildlifeAiApp.getOverview();
     heroSubtitle.textContent = data.subtitle;
   } catch (error) {
     heroSubtitle.textContent = "System overview is not available right now.";
@@ -39,19 +38,7 @@ signupForm.addEventListener("submit", async (event) => {
   const payload = Object.fromEntries(formData.entries());
 
   try {
-    const response = await fetch("/api/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-    });
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || "Signup failed");
-    }
-
+    const data = WildlifeAiApp.signup(payload);
     authMessage.textContent = data.message;
     signupForm.reset();
     showLogin();
@@ -67,21 +54,8 @@ loginForm.addEventListener("submit", async (event) => {
   const payload = Object.fromEntries(formData.entries());
 
   try {
-    const response = await fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(payload)
-    });
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || "Login failed");
-    }
-
-    localStorage.setItem("junglix_token", data.token);
-    window.location.href = "/dashboard.html";
+    WildlifeAiApp.login(payload);
+    window.location.href = "./dashboard.html";
   } catch (error) {
     authMessage.textContent = error.message;
   }
