@@ -102,6 +102,8 @@ coverage/
 # MongoDB local files (if any)
 # =========================
 data/
+!src/data/
+!src/data/**
 *.db
 
 # =========================
