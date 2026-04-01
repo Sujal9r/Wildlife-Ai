@@ -1,22 +1,68 @@
 import { motion } from 'framer-motion';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ArrowLeft, ArrowRight, MapPinned, ShieldCheck, Trees, Users } from 'lucide-react';
+import { useSearchParams } from 'react-router-dom';
 import { SectionHeader } from '../components/SectionHeader';
 import { StatusBadge } from '../components/StatusBadge';
 import { ZoneCard } from '../components/ZoneCard';
 import { protectedZones } from '../data/mockData';
+import { matchesSearch, normalizeSearchValue } from '../utils/search';
 
 export function ProtectedAreasPage() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get('search') ?? '';
 
-  const selectedZone = useMemo(() => protectedZones[activeIndex] ?? protectedZones[0], [activeIndex]);
+  const visibleZones = useMemo(
+    () =>
+      protectedZones.filter((zone) =>
+        matchesSearch(searchQuery, [zone.id, zone.name, zone.state, zone.status, zone.riskLevel, zone.focus, zone.area])
+      ),
+    [searchQuery]
+  );
+
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      return;
+    }
+
+    const matchedIndex = protectedZones.findIndex((zone) =>
+      matchesSearch(searchQuery, [zone.id, zone.name, zone.state, zone.status, zone.riskLevel, zone.focus, zone.area])
+    );
+
+    if (matchedIndex >= 0) {
+      setActiveIndex(matchedIndex);
+    }
+  }, [searchQuery]);
+
+  const selectedZone = useMemo(() => {
+    const activeZone = protectedZones[activeIndex];
+
+    return visibleZones.find((zone) => zone.id === activeZone?.id) ?? visibleZones[0] ?? null;
+  }, [activeIndex, visibleZones]);
 
   function goToNext() {
-    setActiveIndex((current) => (current + 1) % protectedZones.length);
+    if (!visibleZones.length || !selectedZone) {
+      return;
+    }
+
+    const currentVisibleIndex = visibleZones.findIndex((zone) => zone.id === selectedZone.id);
+    const nextZone = visibleZones[(currentVisibleIndex + 1) % visibleZones.length];
+    const nextIndex = protectedZones.findIndex((zone) => zone.id === nextZone.id);
+
+    setActiveIndex(nextIndex);
   }
 
   function goToPrevious() {
-    setActiveIndex((current) => (current - 1 + protectedZones.length) % protectedZones.length);
+    if (!visibleZones.length || !selectedZone) {
+      return;
+    }
+
+    const currentVisibleIndex = visibleZones.findIndex((zone) => zone.id === selectedZone.id);
+    const previousZone = visibleZones[(currentVisibleIndex - 1 + visibleZones.length) % visibleZones.length];
+    const previousIndex = protectedZones.findIndex((zone) => zone.id === previousZone.id);
+
+    setActiveIndex(previousIndex);
   }
 
   return (
@@ -63,20 +109,25 @@ export function ProtectedAreasPage() {
         </div>
 
         <div className="mt-6 flex flex-wrap gap-3">
-          {protectedZones.map((zone, index) => (
-            <button
-              key={zone.id}
-              type="button"
-              onClick={() => setActiveIndex(index)}
-              className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
-                activeIndex === index
-                  ? 'border-moss/25 bg-moss/15 text-moss'
-                  : 'border-white/10 bg-white/[0.04] text-white/70 hover:border-white/20 hover:bg-white/[0.08]'
-              }`}
-            >
-              {zone.name}
-            </button>
-          ))}
+          {visibleZones.map((zone) => {
+            const index = protectedZones.findIndex((item) => item.id === zone.id);
+            const isSelected = normalizeSearchValue(selectedZone?.id) === normalizeSearchValue(zone.id);
+
+            return (
+              <button
+                key={zone.id}
+                type="button"
+                onClick={() => setActiveIndex(index)}
+                className={`rounded-full border px-4 py-2 text-sm font-medium transition ${
+                  isSelected
+                    ? 'border-moss/25 bg-moss/15 text-moss'
+                    : 'border-white/10 bg-white/[0.04] text-white/70 hover:border-white/20 hover:bg-white/[0.08]'
+                }`}
+              >
+                {zone.name}
+              </button>
+            );
+          })}
         </div>
 
         {selectedZone ? (
@@ -150,8 +201,8 @@ export function ProtectedAreasPage() {
                           Slide Position
                         </p>
                         <p className="mt-1 text-sm font-semibold text-white">
-                          {String(activeIndex + 1).padStart(2, '0')} /{' '}
-                          {String(protectedZones.length).padStart(2, '0')}
+                          {String(visibleZones.findIndex((zone) => zone.id === selectedZone.id) + 1).padStart(2, '0')} /{' '}
+                          {String(visibleZones.length).padStart(2, '0')}
                         </p>
                       </div>
                       <ShieldCheck className="h-5 w-5 text-moss" />
@@ -173,11 +224,16 @@ export function ProtectedAreasPage() {
               </div>
             </div>
           </motion.div>
-        ) : null}
+        ) : (
+          <div className="mt-6 rounded-[28px] border border-dashed border-white/10 bg-white/[0.03] px-6 py-10 text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/35">No protected area matches</p>
+            <p className="mt-3 text-sm leading-6 text-white/60">Try another search term to find a reserve, state, or focus area.</p>
+          </div>
+        )}
       </section>
 
       <section className="grid gap-6 xl:grid-cols-2">
-        {protectedZones.map((zone, index) => (
+        {visibleZones.map((zone, index) => (
           <ZoneCard key={zone.id} zone={zone} index={index} />
         ))}
       </section>

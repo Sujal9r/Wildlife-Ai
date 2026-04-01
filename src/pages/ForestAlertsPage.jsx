@@ -1,10 +1,12 @@
 import { useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { DataTable } from '../components/DataTable';
 import { FilterTabs } from '../components/FilterTabs';
 import { PanelCard } from '../components/PanelCard';
 import { SectionHeader } from '../components/SectionHeader';
 import { StatusBadge } from '../components/StatusBadge';
 import { alertTypes, alerts } from '../data/mockData';
+import { matchesSearch } from '../utils/search';
 
 const columns = [
   { key: 'id', label: 'Alert ID' },
@@ -17,14 +19,16 @@ const columns = [
 
 export function ForestAlertsPage() {
   const [activeFilter, setActiveFilter] = useState('All');
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get('search') ?? '';
 
   const filteredAlerts = useMemo(() => {
-    if (activeFilter === 'All') {
-      return alerts;
-    }
+    const alertsByType = activeFilter === 'All' ? alerts : alerts.filter((alert) => alert.type === activeFilter);
 
-    return alerts.filter((alert) => alert.type === activeFilter);
-  }, [activeFilter]);
+    return alertsByType.filter((alert) =>
+      matchesSearch(searchQuery, [alert.id, alert.title, alert.type, alert.severity, alert.location, alert.timestamp, alert.source, alert.status])
+    );
+  }, [activeFilter, searchQuery]);
 
   return (
     <div className="space-y-6">
@@ -54,7 +58,14 @@ export function ForestAlertsPage() {
         ))}
       </section>
 
-      <PanelCard title="Alert operations table" subtitle="Filterable static mock data for threat review and response planning">
+      <PanelCard
+        title="Alert operations table"
+        subtitle={
+          searchQuery
+            ? `Showing matches for "${searchQuery}" across alert records and sources.`
+            : 'Filterable static mock data for threat review and response planning'
+        }
+      >
         <DataTable columns={columns} rows={filteredAlerts} />
       </PanelCard>
     </div>
